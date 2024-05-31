@@ -30,3 +30,57 @@ initialCards.forEach((cardData) => {
   const cardElement = createCard(cardData, deleteCard);
   cardsContainer.appendChild(cardElement);
 });
+
+// Импорт стилей и функций
+import "./pages/index.css";
+import { initialCards, viewCard } from "./components/cards.js"; // Добавлен импорт viewCard
+import { deleteCard, likeCard, createCard } from "./components/card.js";
+import { closePopup, openPopup, setClosePopupEventListeners } from "./components/modal.js";
+
+// DOM узлы
+const profileEditButton = document.querySelector('.profile__edit-button');
+const newCardButton = document.querySelector('.profile__add-button');
+const placesList = document.querySelector('.places__list');
+const popupEdit = document.querySelector('.popup_type_edit');
+const popupNewCard = document.querySelector('.popup_type_new-card');
+
+// Вывод карточек на страницу
+initialCards.forEach((element) => {
+  placesList.append(createCard(element, deleteCard, likeCard, viewCard));
+});
+
+// Обработчики событий для кнопок редактирования профиля и добавления новой карточки
+profileEditButton.addEventListener("click", () => {
+  openPopup(popupEdit);
+  popupEdit.querySelector('input[name="name"]').value = document.querySelector('.profile__title').textContent;
+  popupEdit.querySelector('input[name="description"]').value = document.querySelector('.profile__description').textContent;
+});
+
+newCardButton.addEventListener("click", () => {
+  openPopup(popupNewCard);
+});
+
+// Обработчики событий для форм
+popupEdit.addEventListener('submit', handleFormSubmitEdit);
+popupNewCard.addEventListener('submit', handleFormSubmitAddNewCard);
+
+// Функции для обработки событий форм
+function handleFormSubmitEdit(evt) {
+  evt.preventDefault();
+  // ... код для обработки формы редактирования профиля ...
+}
+
+function handleFormSubmitAddNewCard(evt) {
+  evt.preventDefault();
+  // ... код для обработки формы добавления новой карточки ...
+}
+
+// Функция для просмотра карточки
+function viewCard(name, link) {
+  // ... код для отображения попапа с изображением ...
+}
+
+// Установка обработчиков событий для закрытия попапов
+document.querySelectorAll('.popup').forEach((popup) => {
+  setClosePopupEventListeners(popup);
+});
