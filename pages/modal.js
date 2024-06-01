@@ -10,20 +10,27 @@ function closePopup(popup) {
 
 const handleEscUp = (evt) => {
     if (evt.key === "Escape") {
-        const activePopup = document.querySelector(".popup_opened");
-        if (activePopup) {
-            closePopup(activePopup);
-        }
+        closePopup(document.querySelector(".popup_opened"));
     }
 };
 
-function setClosePopupEventListeners() {
-    document.addEventListener("click", (evt) => {
-        if (evt.target.classList.contains("popup__close") || evt.target.classList.contains("popup")) {
-            const popup = evt.target.closest('.popup');
-            closePopup(popup);
-        }
-    });
+
+function openPopup(popup) {
+    // ... код для открытия всплывающего окна ...
+    document.addEventListener('click', closePopupEvent);
 }
+
+function closePopup(popup) {
+    // ... код для закрытия всплывающего окна ...
+    document.removeEventListener('click', closePopupEvent);
+}
+
+function closePopupEvent(evt) {
+    if (evt.target.classList.contains("popup__close") || evt.target.classList.contains("popup")) {
+        const popup = evt.target.closest('.popup');
+        closePopup(popup);
+    }
+}
+
 
 export { openPopup, closePopup, setClosePopupEventListeners };

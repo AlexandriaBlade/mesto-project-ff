@@ -50,10 +50,17 @@ initialCards.forEach((element) => {
 });
 
 // Обработчики событий для кнопок редактирования профиля и добавления новой карточки
+// Находим элементы один раз и сохраняем ссылки на них
+const profileTitle = document.querySelector('.profile__title');
+const profileDescription = document.querySelector('.profile__description');
+const nameInput = popupEdit.querySelector('input[name="name"]');
+const descriptionInput = popupEdit.querySelector('input[name="description"]');
+
+// Обработчики событий для кнопок редактирования профиля и добавления новой карточки
 profileEditButton.addEventListener("click", () => {
   openPopup(popupEdit);
-  popupEdit.querySelector('input[name="name"]').value = document.querySelector('.profile__title').textContent;
-  popupEdit.querySelector('input[name="description"]').value = document.querySelector('.profile__description').textContent;
+  nameInput.value = profileTitle.textContent;
+  descriptionInput.value = profileDescription.textContent;
 });
 
 newCardButton.addEventListener("click", () => {
