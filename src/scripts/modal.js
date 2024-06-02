@@ -1,16 +1,16 @@
 function openPopup(popup) {
-    popup.classList.add('popup_opened'); // Объединенный класс для анимации и отображения
+    popup.classList.add('popup_is-opened'); // Объединенный класс для анимации и отображения
     document.addEventListener("keyup", handleEscUp);
 };
 
 function closePopup(popup) {
-    popup.classList.remove("popup_opened");
+    popup.classList.remove("popup_is-opened");
     document.removeEventListener("keyup", handleEscUp);
 };
 
 const handleEscUp = (evt) => {
     if (evt.key === "Escape") {
-        closePopup(document.querySelector(".popup_opened"));
+        closePopup(document.querySelector(".popup_is-opened"));
     }
 };
 
