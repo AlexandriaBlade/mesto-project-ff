@@ -1,4 +1,4 @@
-// Спасибо огромное за Ваши подробные комментарии! Стало намного понятнее!
+
 
 import '../pages/index.css';
 import { createCard, deleteCard, like } from '../scripts/cards.js';
