@@ -1,14 +1,16 @@
 {
-  "name": "mesto-project-ff",
+  "name": "project-mesto",
   "version": "1.0.0",
-  "description": "project mesto",
+  "description": "https://github.com/AlexandriaBlade/mesto-project-ff.git",
   "main": "index.js",
   "scripts": {
     "build": "webpack --mode production",
-    "dev": "webpack serve"
+    "dev": "webpack serve",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "keywords": [],
-  "author": "Alexandria Blade",
+  "author": "",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.24.5",
@@ -18,6 +20,7 @@
     "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^7.1.1",
     "cssnano": "^7.0.1",
+    "gh-pages": "^6.1.1",
     "html-webpack-plugin": "^5.6.0",
     "mini-css-extract-plugin": "^2.9.0",
     "postcss-loader": "^8.1.1",
@@ -29,3 +32,4 @@
     "core-js": "^3.37.0"
   }
 }
+
