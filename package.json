@@ -1,14 +1,16 @@
 {
-  "name": "mesto-project-ff",
+  "name": "project-mesto",
   "version": "1.0.0",
-  "description": "project mesto",
+  "description": "https://github.com/AlexandriaBlade/mesto-project-ff.git",
   "main": "index.js",
   "scripts": {
     "build": "webpack --mode production",
-    "dev": "webpack serve"
+    "dev": "webpack serve",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "keywords": [],
-  "author": "Alexandria Blade",
+  "author": "",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.24.5",
@@ -30,3 +32,4 @@
     "core-js": "^3.37.0"
   }
 }
+
