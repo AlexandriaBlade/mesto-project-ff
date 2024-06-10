@@ -38,7 +38,7 @@ const buttonFormEditAvatar = formEditAvatar.querySelector('.popup__button');
 let card;
 let cardId;
 
-// Добавление карточек
+// Добавить карточки
 Promise.all([getUserData(), getInitialCards()])
 .then((res) => {
   const [userData, cardsData] = res;
@@ -89,6 +89,8 @@ function handleLikeButton (id, evt, likeButton) {
   }
 }
 
+// Спасибо за комментарии, стало понятнее! Верстка не наша, такую дали.
+
 function handleDeleteButtonClick (item, evt) {
   openPopup(popupTypeQuestion);
   card = evt.target.closest('.card');
@@ -106,7 +108,7 @@ function handleYesButtonClick () {
 
 popupTypeQuestionButton.addEventListener('click', handleYesButtonClick);
 
-// Открыть форму редактирования профиля
+// Открыть Форму "редактировать профиль"
 
 profileEditButton.addEventListener('click', () => {
   openPopup(popupTypeEdit);
@@ -116,9 +118,11 @@ profileEditButton.addEventListener('click', () => {
   // clearValidation очищает поля и переключает кнопку. После установки значений в поля
   // Для clearValidation они не видны и кнопка остается disabled=true. Есди поменять места
   // Очистятся инпуты. Далее костыль
+  buttonFormEditProfile.disabled = false;
+  buttonFormEditProfile.classList.remove('submit_inactive');
 });
 
-// Сохранить изменения формы редактирования профиля
+// Сохранить изменения формы "редактировать профиль"
 
 formEditProfile.addEventListener('submit', (evt) => handleFormEditProfile(evt));
 
@@ -143,7 +147,7 @@ function handleFormEditProfile (evt) {
   })
 }
 
-// Открыть форму добавления карточки
+// Открыть Форму "добавить карточку"
 
 profileAddButton.addEventListener('click', () => {
   openPopup(popupTypeNewCard);
@@ -210,3 +214,6 @@ popups.forEach((item) => {
     }
   })
 })
+
+// Токен: 2e1b0b74-43cb-43a1-b169-23f9e934c10d
+// Идентификатор группы: wff-cohort-14
