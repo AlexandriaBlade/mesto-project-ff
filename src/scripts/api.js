@@ -1,37 +1,30 @@
+// api.js
+import checkResponse from './utils/checkResponse';
+
 const config = {
   baseUrl: 'https://nomoreparties.co/v1/wff-cohort-14',
   headers: {
     authorization: '3c382b25-38b5-4282-b2ef-ceb495a40170',
     'Content-Type': 'application/json'
   }
-}
+};
 
-function getUserData () {
-  return fetch(`${config.baseUrl}/users/me`, {
+function getUserData() {
+  return fetch(\`\${config.baseUrl}/users/me\`, {
     headers: config.headers
   })
-  .then((res) => {
-    if(res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  })
+  .then(checkResponse);
 }
 
-function getInitialCards () {
-  return fetch(`${config.baseUrl}/cards`, {
+function getInitialCards() {
+  return fetch(\`\${config.baseUrl}/cards\`, {
     headers: config.headers
   })
-  .then((res) => {
-    if(res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  })
+  .then(checkResponse);
 }
 
-function patchUserInfo (editProfileName, editProfileDescription) {
-  return fetch(`${config.baseUrl}/users/me`, {
+function patchUserInfo(editProfileName, editProfileDescription) {
+  return fetch(\`\${config.baseUrl}/users/me\`, {
     method: 'PATCH',
     headers: config.headers,
     body: JSON.stringify({
@@ -39,16 +32,11 @@ function patchUserInfo (editProfileName, editProfileDescription) {
       about: editProfileDescription.value
     })
   })
-  .then((res) => {
-    if(res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  })
+  .then(checkResponse);
 }
 
-function postNewCard (formNewPlaceInputName, formNewPlaceInputLink) {
-  return fetch(`${config.baseUrl}/cards`, {
+function postNewCard(formNewPlaceInputName, formNewPlaceInputLink) {
+  return fetch(\`\${config.baseUrl}/cards\`, {
     method: 'POST',
     headers: config.headers,
     body: JSON.stringify({
@@ -56,66 +44,43 @@ function postNewCard (formNewPlaceInputName, formNewPlaceInputLink) {
       link: formNewPlaceInputLink.value
     })
   })
-  .then((res) => {
-    if(res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  })}
+  .then(checkResponse);
+}
 
-  function deleteCard (id) {
-  return fetch(`${config.baseUrl + '/cards/' + id}`, {
+function deleteCard(id) {
+  return fetch(\`\${config.baseUrl}/cards/\${id}\`, {
     method: 'DELETE',
     headers: config.headers
   })
-  .then((res) => {
-    if(res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
+  .then(checkResponse);
+}
+
+function likeCard(id) {
+  return fetch(\`\${config.baseUrl}/cards/likes/\${id}\`, {
+    method: 'PUT',
+    headers: config.headers
   })
+  .then(checkResponse);
 }
 
-function likeCard (id) {
-  return fetch(`${config.baseUrl + '/cards/likes/' + id}`, {
-  method: 'PUT',
-  headers: config.headers
-})
-.then((res) => {
-  if(res.ok) {
-    return res.json();
-  }
-  return Promise.reject(`Ошибка: ${res.status}`);
-})
-}
-
-function deleteLike (id) {
-  return fetch(`${config.baseUrl + '/cards/likes/' + id}`, {
+function deleteLike(id) {
+  return fetch(\`\${config.baseUrl}/cards/likes/\${id}\`, {
     method: 'DELETE',
     headers: config.headers
   })
-  .then((res) => {
-    if(res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  })
+  .then(checkResponse);
 }
 
-function editAvatar (input) {
-  return fetch(`${config.baseUrl}/users/me/avatar`, {
+function editAvatar(input) {
+  return fetch(\`\${config.baseUrl}/users/me/avatar\`, {
     method: 'PATCH',
     headers: config.headers,
     body: JSON.stringify({
       avatar: input.value
     })
   })
-  .then((res) => {
-    if(res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  })
+  .then(checkResponse);
 }
 
-export {getUserData, getInitialCards, patchUserInfo, postNewCard, deleteCard, likeCard, deleteLike, editAvatar}
+export { getUserData, getInitialCards, patchUserInfo, postNewCard, deleteCard, likeCard, deleteLike, editAvatar };
+
