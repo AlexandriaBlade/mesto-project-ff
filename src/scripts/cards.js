@@ -1,5 +1,7 @@
+// cards.js
 const cardTemplate = document.querySelector('#card-template');
 
+// Функция для создания карточки
 function createCard(item, userId, name, link, handleImageClick, handleDeleteButtonClick, handleLikeButton) {
   const listItemCopy = cardTemplate.content.cloneNode(true);
   const cardImage = listItemCopy.querySelector('.card__image');
@@ -25,8 +27,17 @@ function createCard(item, userId, name, link, handleImageClick, handleDeleteButt
   return listItemCopy;
 }
 
+// Функция для проверки, поставил ли пользователь лайк
 function isLiked(item, userId) {
   return item.likes.some((likeUser) => likeUser._id === userId);
 }
 
-export { createCard, isLiked };
+// Функция для переключения лайка
+function like(event) {
+  const likeButton = event.target;
+  likeButton.classList.toggle('card__like-button_is-active');
+}
+
+// Экспорт функций
+export { createCard, isLiked, like };
+

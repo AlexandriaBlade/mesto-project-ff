@@ -1,3 +1,4 @@
+// index.js
 import '../pages/index.css';
 import { createCard, like } from '../scripts/cards.js';
 import { openPopup, closePopup } from '../scripts/modal.js';
@@ -38,7 +39,7 @@ const buttonFormEditAvatar = formEditAvatar.querySelector('.popup__button');
 let card;
 let cardId;
 
-// Добавить карточки
+// Добавление карточек
 Promise.all([getUserData(), getInitialCards()])
 .then((res) => {
   const [userData, cardsData] = res;
@@ -57,8 +58,7 @@ function setProfileInfo (userData) {
 
 function renderCard(item, userId, method = "prepend") {
   const cardElement = createCard(item, userId, item.name, item.link, handleImageClick, handleDeleteButtonClick, handleLikeButton);
-  cardList[ method ](cardElement);
-}
+  cardList[ method ](cardElement}
 
 // Обработчики клика для карточки
 
@@ -89,40 +89,24 @@ function handleLikeButton (id, evt, likeButton) {
   }
 }
 
-// Спасибо за комментарии, стало понятнее! Верстка не наша, такую дали.
-
 function handleDeleteButtonClick (item, evt) {
   openPopup(popupTypeQuestion);
   card = evt.target.closest('.card');
   cardId = item._id;
 }
 
-function handleYesButtonClick () {
-  deleteCard(cardId)
-  .then(() => {
-    card.remove();
-    closePopup(popupTypeQuestion);
-  })
-  .catch((err) => console.log(err))
-}
-
 popupTypeQuestionButton.addEventListener('click', handleYesButtonClick);
 
-// Открыть Форму "редактировать профиль"
+// Открыть форму редактирования профиля
 
 profileEditButton.addEventListener('click', () => {
   openPopup(popupTypeEdit);
   clearValidation(config, inputsFormEditProfile, buttonFormEditProfile, formEditProfile);
   inputProfileName.value = profileTitle.textContent;
   inputProfileDescription.value = profileDescription.textContent;
-  // clearValidation очищает поля и переключает кнопку. После установки значений в поля
-  // Для clearValidation они не видны и кнопка остается disabled=true. Есди поменять места
-  // Очистятся инпуты. Далее костыль
-  buttonFormEditProfile.disabled = false;
-  buttonFormEditProfile.classList.remove('submit_inactive');
 });
 
-// Сохранить изменения формы "редактировать профиль"
+// Сохранить изменения формы редактирования профиля
 
 formEditProfile.addEventListener('submit', (evt) => handleFormEditProfile(evt));
 
@@ -147,7 +131,7 @@ function handleFormEditProfile (evt) {
   })
 }
 
-// Открыть Форму "добавить карточку"
+// Открыть форму добавления карточки
 
 profileAddButton.addEventListener('click', () => {
   openPopup(popupTypeNewCard);
@@ -214,6 +198,3 @@ popups.forEach((item) => {
     }
   })
 })
-
-// Токен: 2e1b0b74-43cb-43a1-b169-23f9e934c10d
-// Идентификатор группы: wff-cohort-14
