@@ -1,18 +1,18 @@
-function showInputError (config, formElement, inputElement, errorMessage) { // появляение ошибки
+function showInputError (config, formElement, inputElement, errorMessage) { 
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
   inputElement.classList.add(config.inputErrorClass);
   errorElement.classList.add(config.errorClass);
   errorElement.textContent = errorMessage;
 }
 
-function hideInputError (config, formElement, inputElement) { // убираем ошибку делаем поле пустым
+function hideInputError (config, formElement, inputElement) { 
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
   inputElement.classList.remove(config.inputErrorClass);
   errorElement.classList.remove(config.errorClass);
   errorElement.textContent = ""; 
 }
 
-function isValid (config, formElement, inputElement) { // проверяем на валидность
+function isValid (config, formElement, inputElement) {
   if(inputElement.validity.patternMismatch) {
     inputElement.setCustomValidity(inputElement.dataset.errorMessage);
   } else {
@@ -29,7 +29,7 @@ function setEventListeners (config, formElement) {
   const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
   const buttonElement = formElement.querySelector(config.submitButtonSelector);
 
-  inputList.forEach((item) => { // добавляем оработчик 
+  inputList.forEach((item) => {
     item.addEventListener('input', () => {
       isValid(config, formElement, item);
       toggleButtonState(config, inputList, buttonElement);
