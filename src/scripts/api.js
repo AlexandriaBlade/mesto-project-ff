@@ -1,84 +1,106 @@
-import checkResponse from './utils/checkResponse';
-
-const config = {
-  baseUrl: 'https://nomoreparties.co/v1/wff-cohort-14',
-  headers: {
-    authorization: '3c382b25-38b5-4282-b2ef-ceb495a40170',
-    'Content-Type': 'application/json'
+const token = '3c382b25-38b5-4282-b2ef-ceb495a40170';
+const cardsPath = 'https://nomoreparties.co/v1/wff-cohort-14/cards';
+const userPath = 'https://nomoreparties.co/v1/wff-cohort-14/users/me';
+const handleResponse = (result) => {
+    if(result.ok){
+      return result.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
   }
+
+export const getAllCards = () => {
+    return fetch(cardsPath, {
+      headers: {
+        authorization: token
+      }
+    })
+    .then(handleResponse) 
 };
 
-function getUserData() {
-  return fetch(`${config.baseUrl}/users/me`, {
-    headers: config.headers
-  })
-  .then(checkResponse);
-}
-
-function getInitialCards() {
-  return fetch(`${config.baseUrl}/cards`, {
-    headers: config.headers
-  })
-  .then(checkResponse);
-}
-
-function patchUserInfo(editProfileName, editProfileDescription) {
-  return fetch(`${config.baseUrl}/users/me`, {
-    method: 'PATCH',
-    headers: config.headers,
-    body: JSON.stringify({
-      name: editProfileName.value,
-      about: editProfileDescription.value
+ export const getProfileData = () => {
+    return fetch(userPath, {
+        method: 'GET',
+        headers: {
+        authorization: token
+        }
     })
-  })
-  .then(checkResponse);
-}
-
-function postNewCard(formNewPlaceInputName, formNewPlaceInputLink) {
-  return fetch(`${config.baseUrl}/cards`, {
-    method: 'POST',
-    headers: config.headers,
-    body: JSON.stringify({
-      name: formNewPlaceInputName.value,
-      link: formNewPlaceInputLink.value
+    .then(handleResponse) 
+};
+export const setProfileDataApi = (profile) => {
+    return fetch(userPath, {
+        method: 'PATCH',
+        headers: {
+            authorization: token,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            name: profile.name,
+            about: profile.about
+        })
     })
-  })
-  .then(checkResponse);
-}
+    .then(handleResponse)
+};
 
-function deleteCard(id) {
-  return fetch(`${config.baseUrl}/cards/${id}`, {
-    method: 'DELETE',
-    headers: config.headers
-  })
-  .then(checkResponse);
-}
-
-function likeCard(id) {
-  return fetch(`${config.baseUrl}/cards/likes/${id}`, {
-    method: 'PUT',
-    headers: config.headers
-  })
-  .then(checkResponse);
-}
-
-function deleteLike(id) {
-  return fetch(`${config.baseUrl}/cards/likes/${id}`, {
-    method: 'DELETE',
-    headers: config.headers
-  })
-  .then(checkResponse);
-}
-
-function editAvatar(input) {
-  return fetch(`${config.baseUrl}/users/me/avatar`, {
-    method: 'PATCH',
-    headers: config.headers,
-    body: JSON.stringify({
-      avatar: input.value
+export const setProfileImageApi = (profileData) => {
+    return fetch(userPath + '/avatar', {
+        method: 'PATCH',
+        headers: {
+            authorization: token,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            avatar: profileData.avatar
+        })
     })
-  })
-  .then(checkResponse);
-}
+    .then(handleResponse)
+};
 
-export { getUserData, getInitialCards, patchUserInfo, postNewCard, deleteCard, likeCard, deleteLike, editAvatar };
+export const postNewCardApi = (cardData) => {
+    return fetch(cardsPath, {
+        method: 'POST',
+        headers: {
+            authorization: token,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            name: cardData.name,
+            link: cardData.link
+        })
+    })
+    .then(handleResponse)
+};
+
+
+export const deleteCardApi = (cardId) => {
+    return fetch(cardsPath + '/' + cardId, {
+        method: 'DELETE',
+        headers: {
+            authorization: token,
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(handleResponse) 
+};
+
+
+export const putLikeApi = (cardId) => {
+    return fetch(cardsPath + '/likes/' + cardId, {
+        method: 'PUT',
+        headers: {
+            authorization: token,
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(handleResponse) 
+};
+
+export const deleteLikeApi = (cardId) => {
+    return fetch(cardsPath + '/likes/' + cardId, {
+        method: 'DELETE',
+        headers: {
+            authorization: token,
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(handleResponse)
+};
