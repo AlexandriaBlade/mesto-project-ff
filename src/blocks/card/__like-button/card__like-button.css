@@ -1,4 +1,5 @@
 .card__like-button {
+  position: relative;
   width: 21px;
   height: 18px;
   background: transparent url('../../../images/like-inactive.svg') no-repeat;
@@ -19,15 +20,11 @@
   opacity: 0.6;
 }
 
-.card__like-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 3px;
-}
-
-.card__like-counter {
-  font-size: 13px;
+.card__like-button::after {
+  content: attr(data-after);
+  position: absolute;
+  left: 5px;
+  top: 20px;
   width: 10px;
   height: 13px;
 }

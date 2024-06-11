@@ -2,8 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Mesto</title>
 </head>
@@ -14,7 +13,8 @@
   </header>
   <main class="content">
     <section class="profile page__section">
-      <div class="profile__image"></div>
+      <img class="profile__image">
+      <span class="profile__image-edit"></span>
       <div class="profile__info">
         <h1 class="profile__title"></h1>
         <button class="profile__edit-button" type="button"></button>
@@ -32,51 +32,59 @@
       © 2021 Mesto Russia
     </p>
   </footer>
-  <div class="popup popup_type_edit">
+  <div class="popup popup_type_edit popup_is-animated">
     <div class="popup__content">
       <button type="button" class="popup__close"></button>
       <h3 class="popup__title">Редактировать профиль</h3>
       <form class="popup__form" name="edit-profile" novalidate>
-        <input type="text" name="name" id="name-input" class="popup__input popup__input_type_name" placeholder="Имя" required minlength="2" maxlength="40" pattern="^[a-zA-Zа-яёА-ЯЁ\s\-]+$" data-error-message="Разрешены только латинские и кириллические буквы, знаки дефиса и пробелы">
-        <span class="popup__input-error name-input-error" ></span>
-        <input type="text" name="description" id="description-input" class="popup__input popup__input_type_description" placeholder="Занятие" required minlength="2" maxlength="200" pattern="^[a-zA-Zа-яёА-ЯЁ\s\-]+$" data-error-message="Разрешены только латинские и кириллические буквы, знаки дефиса и пробелы">
-        <span class="popup__input-error description-input-error" ></span>
+        <input id="input-name" type="text" name="name" class="popup__input popup__input_type_name" placeholder="Имя" required minlength="2" maxlength="40" pattern="^[A-Za-zА-Яа-яЁё\s\-]+$" data-error-message="Разрешены только латинские и кириллические буквы, знаки дефиса и пробелы">
+        <span class="input-name-error input-error"></span>
+        <input id="input-description" type="text" name="description" class="popup__input popup__input_type_description" placeholder="Занятие" required minlength="2" maxlength="400" pattern="^[A-Za-zА-Яа-яЁё\s\-\,]+$" data-error-message="Разрешены только латинские и кириллические буквы, знаки дефиса и пробелы">
+        <span class="input-description-error input-error"></span>
         <button type="submit" class="button popup__button">Сохранить</button>
       </form>
     </div>
   </div>
-  <div class="popup popup_type_new-card">
+  <div class="popup popup_type_new-card popup_is-animated">
     <div class="popup__content">
       <button type="button" class="popup__close"></button>
       <h3 class="popup__title">Новое место</h3>
       <form class="popup__form" name="new-place" novalidate>
-        <input type="text" name="place-name" id="place-name-input" class="popup__input popup__input_type_card-name" placeholder="Название" required minlength="2" maxlength="30" pattern="^[a-zA-Zа-яёА-ЯЁ\s\-]+$" data-error-message="Разрешены только латинские и кириллические буквы, знаки дефиса и пробелы">
-        <span class="popup__input-error place-name-input-error" ></span>
-        <input type="url" name="link" id="link-input" class="popup__input popup__input_type_url" placeholder="Ссылка на картинку" required>
-        <span class="popup__input-error link-input-error" ></span>
+        <input id="input-place" type="text" name="place-name" class="popup__input popup__input_type_card-name" placeholder="Название" required minlength="2" maxlength="30" pattern="^[A-Za-zА-Яа-яЁё\s\-]+$" data-error-message="Разрешены только латинские и кириллические буквы, знаки дефиса и пробелы">
+        <span class="input-place-error input-error" ></span>
+        <input id="input-url" type="text" name="link" class="popup__input popup__input_type_url" placeholder="Ссылка на картинку" required pattern="http(s?)://.*" data-error-message="Введите адрес сайта">
+        <span class="input-url-error input-error" ></span>
         <button type="submit" class="button popup__button">Сохранить</button>
       </form>
     </div>
   </div>
-  <div class="popup popup_type_image">
+  <div class="popup popup_type_image popup_is-animated">
     <div class="popup__content popup__content_content_image">
       <button type="button" class="popup__close"></button>
       <img src="" alt="" class="popup__image">
       <p class="popup__caption"></p>
     </div>
   </div>
-  <div class="popup popup_type_edit-profile-image">
-    <div class="popup__content">
+  <div class="popup popup_type_new-avatar popup_is-animated">
+    <div class="popup__content popup__content-new-avatar">
       <button type="button" class="popup__close"></button>
       <h3 class="popup__title">Обновить аватар</h3>
-      <form class="popup__form" name="edit-image" novalidate>
-        <input type="url" name="link-profile-image" id="image-link-input" class="popup__input popup__input_type_url" placeholder="Ссылка на картинку" required>
-        <span class="popup__input-error image-link-input-error" ></span>
+      <form class="popup__form" name="edit-avatar" novalidate>
+        <input id="input-url" type="text" name="link" class="popup__input popup__input_type_url" placeholder="Ссылка на картинку" required pattern="http(s?)://.*" data-error-message="Введите адрес сайта">
+        <span class="input-url-error input-error" ></span>
         <button type="submit" class="button popup__button">Сохранить</button>
       </form>
     </div>
   </div>
+  <div class="popup popup_type_question popup_is-animated">
+    <div class="popup__content popup__content-question">
+      <button type="button" class="popup__close"></button>
+      <h3 class="popup__title">Вы уверены?</h3>
+      <button type="button" class="button popup__button">Да</button>
+    </div>
+  </div>
 </div>
+
 
 <template id="card-template">
   <li class="places__item card">
@@ -85,10 +93,7 @@
     <div class="card__description">
       <h2 class="card__title">
       </h2>
-      <div class="card__like-container">
-        <button type="button" class="card__like-button"></button>
-        <span class="card__like-counter"></span>
-      </div>
+      <button type="button" class="card__like-button"></button>
     </div>
   </li>
 </template>

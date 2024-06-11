@@ -1,41 +1,18 @@
-export {openModal, closePopup}
-
-function openModal(popup){
-  const buttonClose = popup.querySelector('.popup__close');
-  popup.classList.add('popup_is-animated', 'popup_is-opened');
-  document.addEventListener('keydown', closeEscape);
-  buttonClose.addEventListener('click', closeOpenedPopup);
-  popup.addEventListener('mousedown', closeClickOverlay);
+function openPopup (popup) {
+  popup.classList.add('popup_is-opened');
+  document.addEventListener('keydown', handleEscape); 
 }
-  
-function closePopup(popup){
+
+function closePopup (popup) {
   popup.classList.remove('popup_is-opened');
-  document.removeEventListener('keydown', closeEscape);
-  popup.removeEventListener('click', closeOpenedPopup);
-  popup.removeEventListener('mousedown', closeClickOverlay);
+  document.removeEventListener('keydown', handleEscape);
 }
 
-function closeEscape(evt){
-  if(evt.key === "Escape"){
-    closeOpenedPopup(evt)
-  }
-}
-  
-function closeOpenedPopup(evt){
-  const popupOpened = document.querySelector('.popup_is-opened');
-  closePopup(popupOpened);
-}
-  
-function closeClickOverlay(evt){
-  if (evt.currentTarget === evt.target) {
-    closeOpenedPopup(evt)
+function handleEscape(evt) {
+  if (evt.key === 'Escape') {
+    const openedPopup = document.querySelector('.popup_is-opened');
+    closePopup(openedPopup);
   }
 }
 
-export function displayLoading(popup){
-  popup.querySelector('.popup__button').textContent = 'Сохранение...';
-}
-
-export function hideLoading(popup){
-  popup.querySelector('.popup__button').textContent = 'Сохранить';
-}
+  export {openPopup, closePopup}
