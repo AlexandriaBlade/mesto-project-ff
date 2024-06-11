@@ -1,4 +1,3 @@
-// index.js
 import '../pages/index.css';
 import { createCard, like } from '../scripts/cards.js';
 import { openPopup, closePopup } from '../scripts/modal.js';
@@ -43,12 +42,12 @@ let cardId;
 Promise.all([getUserData(), getInitialCards()])
 .then((res) => {
   const [userData, cardsData] = res;
-      cardsData.forEach((item) => {
-        renderCard(item, userData._id, "append");
-      })
-      setProfileInfo(userData);
+  cardsData.forEach((item) => {
+    renderCard(item, userData._id, "append");
   })
-  .catch((err) => console.log(err))
+  setProfileInfo(userData);
+})
+.catch((err) => console.log(err))
 
 function setProfileInfo (userData) {
   profileImage.src = userData.avatar;
@@ -58,7 +57,7 @@ function setProfileInfo (userData) {
 
 function renderCard(item, userId, method = "prepend") {
   const cardElement = createCard(item, userId, item.name, item.link, handleImageClick, handleDeleteButtonClick, handleLikeButton);
-  cardList[ method ](cardElement)
+  cardList[method](cardElement}
 
 // Обработчики клика для карточки
 
@@ -114,12 +113,12 @@ formEditProfile.addEventListener('submit', (evt) => handleFormEditProfile(evt));
 
 function handleSaveButton (evt, button, buttonText = "Сохранение...") {
   evt.preventDefault();
-  button.textContent = [ buttonText ];
+  button.textContent = buttonText;
 }
 
 function handleFormEditProfile (evt) {
   handleSaveButton(evt, buttonFormEditProfile);
-  patchUserInfo(inputProfileName, inputProfileDescription)
+  patchUserInfo(inputProfileName.value, inputProfileDescription.value)
   .then((data) => {
     profileTitle.textContent = data.name;
     profileDescription.textContent = data.about;
@@ -146,9 +145,9 @@ formNewPlace.addEventListener('submit', (evt) => {
 
 function handleFormNewPlace (evt) {
   handleSaveButton(evt, buttonFormNewPlace);
-  postNewCard(inputNameFormNewPlace, inputLinkFormNewPlace)
+  postNewCard(inputNameFormNewPlace.value, inputLinkFormNewPlace.value)
   .then((data) => {
-    renderCard(data, data.owner._id)
+    renderCard(data, data.owner._id);
     closePopup(popupTypeNewCard);
   })
   .catch((err) => console.log(err))
@@ -170,7 +169,7 @@ formEditAvatar.addEventListener('submit', handleFormEditAvatar)
 
 function handleFormEditAvatar (evt) {
   handleSaveButton(evt, buttonFormEditAvatar);
-  editAvatar(inputFormEditAvatar)
+  editAvatar(inputFormEditAvatar.value)
   .then((data) => {
     avatar.src = data.avatar;
     closePopup(popupTypeNewAvatar);
@@ -189,11 +188,7 @@ enableValidation(config, forms);
 
 popups.forEach((item) => {
   item.addEventListener('mousedown', (evt) => {
-    if (evt.target.classList.contains('popup_is-opened')) {
-      closePopup(item);
-    }
-
-    else if (evt.target.classList.contains('popup__close')) {
+    if (evt.target.classList.contains('popup_is-opened') || evt.target.classList.contains('popup__close')) {
       closePopup(item);
     }
   })
