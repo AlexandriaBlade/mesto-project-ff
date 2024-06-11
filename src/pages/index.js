@@ -58,7 +58,7 @@ function setProfileInfo (userData) {
 
 function renderCard(item, userId, method = "prepend") {
   const cardElement = createCard(item, userId, item.name, item.link, handleImageClick, handleDeleteButtonClick, handleLikeButton);
-  cardList[ method ](cardElement}
+  cardList[ method ](cardElement)
 
 // Обработчики клика для карточки
 
