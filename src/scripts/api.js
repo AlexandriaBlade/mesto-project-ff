@@ -1,4 +1,3 @@
-// api.js
 import checkResponse from './utils/checkResponse';
 
 const config = {
@@ -10,21 +9,21 @@ const config = {
 };
 
 function getUserData() {
-  return fetch(\`\${config.baseUrl}/users/me\`, {
+  return fetch(`${config.baseUrl}/users/me`, {
     headers: config.headers
   })
   .then(checkResponse);
 }
 
 function getInitialCards() {
-  return fetch(\`\${config.baseUrl}/cards\`, {
+  return fetch(`${config.baseUrl}/cards`, {
     headers: config.headers
   })
   .then(checkResponse);
 }
 
 function patchUserInfo(editProfileName, editProfileDescription) {
-  return fetch(\`\${config.baseUrl}/users/me\`, {
+  return fetch(`${config.baseUrl}/users/me`, {
     method: 'PATCH',
     headers: config.headers,
     body: JSON.stringify({
@@ -36,7 +35,7 @@ function patchUserInfo(editProfileName, editProfileDescription) {
 }
 
 function postNewCard(formNewPlaceInputName, formNewPlaceInputLink) {
-  return fetch(\`\${config.baseUrl}/cards\`, {
+  return fetch(`${config.baseUrl}/cards`, {
     method: 'POST',
     headers: config.headers,
     body: JSON.stringify({
@@ -48,7 +47,7 @@ function postNewCard(formNewPlaceInputName, formNewPlaceInputLink) {
 }
 
 function deleteCard(id) {
-  return fetch(\`\${config.baseUrl}/cards/\${id}\`, {
+  return fetch(`${config.baseUrl}/cards/${id}`, {
     method: 'DELETE',
     headers: config.headers
   })
@@ -56,7 +55,7 @@ function deleteCard(id) {
 }
 
 function likeCard(id) {
-  return fetch(\`\${config.baseUrl}/cards/likes/\${id}\`, {
+  return fetch(`${config.baseUrl}/cards/likes/${id}`, {
     method: 'PUT',
     headers: config.headers
   })
@@ -64,7 +63,7 @@ function likeCard(id) {
 }
 
 function deleteLike(id) {
-  return fetch(\`\${config.baseUrl}/cards/likes/\${id}\`, {
+  return fetch(`${config.baseUrl}/cards/likes/${id}`, {
     method: 'DELETE',
     headers: config.headers
   })
@@ -72,7 +71,7 @@ function deleteLike(id) {
 }
 
 function editAvatar(input) {
-  return fetch(\`\${config.baseUrl}/users/me/avatar\`, {
+  return fetch(`${config.baseUrl}/users/me/avatar`, {
     method: 'PATCH',
     headers: config.headers,
     body: JSON.stringify({
@@ -83,4 +82,3 @@ function editAvatar(input) {
 }
 
 export { getUserData, getInitialCards, patchUserInfo, postNewCard, deleteCard, likeCard, deleteLike, editAvatar };
-
