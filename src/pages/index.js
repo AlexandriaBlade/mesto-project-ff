@@ -112,9 +112,7 @@ profileEditButton.addEventListener('click', () => {
   clearValidation(config, inputsFormEditProfile, buttonFormEditProfile, formEditProfile);
   inputProfileName.value = profileTitle.textContent;
   inputProfileDescription.value = profileDescription.textContent;
-  // clearValidation очищает поля и переключает кнопку. После установки значений в поля
-  // Для clearValidation они не видны и кнопка остается disabled=true. Есди поменять места
-  // Очистятся инпуты. Далее костыль
+  
 });
 
 // Сохранить изменения формы "редактировать профиль"
