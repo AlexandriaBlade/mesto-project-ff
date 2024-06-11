@@ -44,12 +44,12 @@ Promise.all([getUserData(), getInitialCards()])
   const [userData, cardsData] = res;
   cardsData.forEach((item) => {
     renderCard(item, userData._id, "append");
-  })
+  });
   setProfileInfo(userData);
 })
-.catch((err) => console.log(err))
+.catch((err) => console.log(err));
 
-function setProfileInfo (userData) {
+function setProfileInfo(userData) {
   profileImage.src = userData.avatar;
   profileTitle.textContent = userData.name;
   profileDescription.textContent = userData.about;
@@ -57,12 +57,12 @@ function setProfileInfo (userData) {
 
 function renderCard(item, userId, method = "prepend") {
   const cardElement = createCard(item, userId, item.name, item.link, handleImageClick, handleDeleteButtonClick, handleLikeButton);
-  cardList[method](cardElement // Исправлено: добавлена закрывающая скобка и точка с запятой
+  cardList[method](cardElement // Здесь была пропущена закрывающая скобка
 }
 
 // Обработчики клика для карточки
 
-function handleImageClick (evt) {
+function handleImageClick(evt) {
   if (evt.target.classList.contains('card__image')) {
     openPopup(imagePopup);
     image.src = evt.target.src;
@@ -71,28 +71,40 @@ function handleImageClick (evt) {
   }
 }
 
-function handleLikeButton (id, evt, likeButton) {
-  if(likeButton.classList.contains('card__like-button_is-active')) {
+function handleLikeButton(id, evt, likeButton) {
+  if (likeButton.classList.contains('card__like-button_is-active')) {
     deleteLike(id)
     .then((data) => {
-      data.likes.length == 0 ? likeButton.dataset.after = "" : likeButton.dataset.after = data.likes.length;
+      data.likes.length === 0 ? likeButton.dataset.after = "" : likeButton.dataset.after = data.likes.length.toString();
       like(evt);
     })
-    .catch((err) => console.log(err))
+    .catch((err) => console.log(err));
   } else {
     likeCard(id)
     .then((data) => {
-      likeButton.dataset.after = data.likes.length;
+      likeButton.dataset.after = data.likes.length.toString();
       like(evt);
     })
-    .catch((err) => console.log(err))
+    .catch((err) => console.log(err));
   }
 }
 
-function handleDeleteButtonClick (item, evt) {
+function handleDeleteButtonClick(item, evt) {
   openPopup(popupTypeQuestion);
   card = evt.target.closest('.card');
   cardId = item._id;
+}
+
+// Добавлен обработчик событий для кнопки подтверждения удаления
+function handleYesButtonClick() {
+  deleteCard(cardId)
+  .then(() => {
+    card.remove();
+    card = null;
+    cardId = null;
+    closePopup(popupTypeQuestion);
+  })
+  .catch((err) => console.log(err));
 }
 
 popupTypeQuestionButton.addEventListener('click', handleYesButtonClick);
@@ -110,14 +122,7 @@ profileEditButton.addEventListener('click', () => {
 
 formEditProfile.addEventListener('submit', (evt) => handleFormEditProfile(evt));
 
-// UX "сохранить"
-
-function handleSaveButton (evt, button, buttonText = "Сохранение...") {
-  evt.preventDefault();
-  button.textContent = buttonText;
-}
-
-function handleFormEditProfile (evt) {
+function handleFormEditProfile(evt) {
   handleSaveButton(evt, buttonFormEditProfile);
   patchUserInfo(inputProfileName.value, inputProfileDescription.value)
   .then((data) => {
@@ -140,11 +145,9 @@ profileAddButton.addEventListener('click', () => {
 
 // Добавить новую карточку
 
-formNewPlace.addEventListener('submit', (evt) => {
-  handleFormNewPlace(evt);
-});
+formNewPlace.addEventListener('submit', (evt) => handleFormNewPlace(evt));
 
-function handleFormNewPlace (evt) {
+function handleFormNewPlace(evt) {
   handleSaveButton(evt, buttonFormNewPlace);
   postNewCard(inputNameFormNewPlace.value, inputLinkFormNewPlace.value)
   .then((data) => {
@@ -161,14 +164,14 @@ function handleFormNewPlace (evt) {
 
 avatar.addEventListener('click', handleAvatarClick);
 
-function handleAvatarClick () {
+function handleAvatarClick() {
   openPopup(popupTypeNewAvatar);
   clearValidation(config, [inputFormEditAvatar], buttonFormEditAvatar, formEditAvatar);
 }
 
-formEditAvatar.addEventListener('submit', handleFormEditAvatar)
+formEditAvatar.addEventListener('submit', handleFormEditAvatar);
 
-function handleFormEditAvatar (evt) {
+function handleFormEditAvatar(evt) {
   handleSaveButton(evt, buttonFormEditAvatar);
   editAvatar(inputFormEditAvatar.value)
   .then((data) => {
@@ -193,5 +196,5 @@ popups.forEach((item) => {
       closePopup(item);
     }
   })
-})
+});
 
